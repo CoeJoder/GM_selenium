@@ -1,0 +1,15 @@
+{
+  "include": [
+    "src/*",
+    "lib/**/*",
+  ],
+  "exclude": [
+    "node_modules", 
+    "**/node_modules/*",
+  ],
+  "compilerOptions": {
+    "module": "CommonJS",
+    "checkJs": false,
+    "target": "ESNext",
+  }
+}

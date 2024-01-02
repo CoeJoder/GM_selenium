@@ -1,0 +1,31 @@
+{
+  "name": "gm_selenium",
+  "description": "A few utilities from the selenium-webdriver API, ported to the browser.",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "bazelisk build //... && node ./tools/copy_to_dist.js && npm run test",
+    "clean": "bazelisk clean && node ./tools/clean_dist.js",
+    "expunge": "bazelisk clean --expunge && node ./tools/clean_dist.js",
+    "test": "npx jasmine-browser-runner runSpecs --config=test/jasmine-browser.json",
+    "testServe": "npx jasmine-browser-runner serve --config=test/jasmine-browser.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CoeJoder/GM_selenium.git"
+  },
+  "author": "CoeJoder",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CoeJoder/GM_selenium/issues"
+  },
+  "homepage": "https://github.com/CoeJoder/GM_selenium#readme",
+  "devDependencies": {
+    "@bazel/bazelisk": "^1.19.0",
+    "@bazel/buildifier": "^6.4.0",
+    "@bazel/ibazel": "^0.24.0",
+    "@types/jasmine": "^5.1.4",
+    "eslint": "^8.56.0",
+    "jasmine-browser-runner": "^2.3.0",
+    "jasmine-core": "^5.1.1"
+  }
+}

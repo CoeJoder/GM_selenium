@@ -1,0 +1,86 @@
+load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_library", "closure_js_binary")
+
+# Define the JavaScript modules to be compiled
+
+closure_js_library(
+    name = "src",
+    srcs = ["misc.js"],
+    visibility = [
+        "//visibility:public",
+    ],
+)
+
+closure_js_library(
+    name = "GM_selenium_lib",
+    srcs = ["gmSelenium.js"],
+    visibility = [
+        "//visibility:public",
+    ],
+    deps = [
+        "//src",
+        "//lib/selenium-webdriver",
+    ],
+)
+
+closure_js_library(
+    name = "GM_selenium_all_lib",
+    srcs = ["gmSeleniumAll.js"],
+    visibility = [
+        "//visibility:public",
+    ],
+    deps = [
+        "//src",
+        ":GM_selenium_lib",
+        "//lib/selenium-webdriver",
+        "//lib/selenium-webdriver/until",
+        "@io_bazel_rules_closure//closure/library",
+    ],
+)
+
+# Compile the JavaScript modules
+
+closure_js_binary(
+    name = "GM_selenium_all_bin",
+    language = "ECMASCRIPT_NEXT",
+#    formatting = "PRETTY_PRINT",
+    compilation_level = "ADVANCED",
+    # the sourceMappingUrl matches the re-written destination per the `tools` build scripts
+    output_wrapper = """(function(){%output%}).call(this);
+//# sourceMappingURL=GM_selenium_all.js.map""",
+    defs = [
+        "--generate_exports",
+        "--env=BROWSER",
+    ],
+    entry_points = [
+        "./src/gmSeleniumAll.js",
+    ],
+    deps = [
+        ":GM_selenium_all_lib",
+    ],
+    visibility = [
+        "//visibility:public",
+    ],
+)
+
+closure_js_binary(
+    name = "GM_selenium_bin",
+    language = "ECMASCRIPT_NEXT",
+#    formatting = "PRETTY_PRINT",
+    compilation_level = "ADVANCED",
+    # the sourceMappingUrl matches the re-written destination per the `tools` build scripts
+    output_wrapper = """(function(){%output%}).call(this);
+//# sourceMappingURL=GM_selenium.js.map""",
+    defs = [
+        "--generate_exports",
+        "--env=BROWSER",
+    ],
+    entry_points = [
+        "./src/gmSelenium.js",
+    ],
+    deps = [
+        ":GM_selenium_lib",
+    ],
+    visibility = [
+        "//visibility:public",
+    ],
+)

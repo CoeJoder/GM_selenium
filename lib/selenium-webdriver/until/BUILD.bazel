@@ -1,0 +1,16 @@
+load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_library")
+
+closure_js_library(
+    name = "until",
+    srcs = glob(["*.js"]),
+    visibility = [
+        "//visibility:public",
+    ],
+    deps = [
+        "//lib/selenium-webdriver",
+        "@io_bazel_rules_closure//closure/library",
+        "@selenium//javascript/atoms:dom",
+        "@selenium//javascript/atoms:locators",
+        "@selenium//javascript/atoms:xpath",
+    ],
+)
