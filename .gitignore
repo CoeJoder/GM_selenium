@@ -1,9 +1,16 @@
-# Bazel and dist dirs
+# Bazel outputs
 .bazelrc.user
-dist
 bazel-out
+dist/*
 
-# unversioned misc
+# Whitelist specific dist files
+!dist/README.md
+!dist/GM_selenium_all.js
+!dist/GM_selenium_all.js.map
+!dist/GM_selenium.js
+!dist/GM_selenium.js.map
+
+# Personal files
 devnotes.txt
 
 # Logs
@@ -97,7 +104,6 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
 
 # Gatsby files
 .cache/
